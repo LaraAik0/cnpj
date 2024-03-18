@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNPJ</title>
+
+<style>
+body {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+h1{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#dados{
+text-align: center;
+}
+
+.container {
+    text-align: center;
+    margin: 0 auto;
+    width: 50%;
+  }
+
+</style>
+
+
+
+
+</head>
+
+<body>
+    <h1>Digite o CNPJ</h1>
+    <br>
+    <br>
+    <br>
+<br>
+<div class="container">
+    <input name="pesquisaCNPJ" id="pesquisaCNPJ" type="text" />
+    <input type="button" value="Buscar CNPJ" onclick="consultarCNPJ()" />
+</div>
+
+<br>
+<br>
+    <div id="dados"></div>
+
+
+
+
+<script>
+
+function consultarCNPJ() {
+  var cnpj = document.getElementById("pesquisaCNPJ").value;
+  fetch("https://cors-anywhere.herokuapp.com/https://receitaws.com.br/v1/cnpj/" + cnpj).then((response) => {
+     if(response.ok) {
+         return response.json();
+     }
+  }).then((dados) => {
+     console.log(dados)
+     document.getElementById("dados").innerHTML = `
+         Nome: ${dados.nome} <br>
+         Nome pessoal: ${dados.fantasia} <br>
+         Email: ${dados.email}<br>
+         Logradouro: ${dados.logradouro}<br>
+         Municipio: ${dados.municipio}<br>
+         Telefone: ${dados.telefone}<br>
+         Número: ${dados.numero}<br>
+         Natureza Juridica: ${dados.natureza_juridica}<br>
+         Porte: ${dados.porte}<br>
+         Tipo: ${dados.tipo}<br>
+         Status: ${dados.status}<br>
+         Situação: ${dados.situacao}<br>
+     `
+  })
+ }
+</script>
+
+</body>
+
+</html>
